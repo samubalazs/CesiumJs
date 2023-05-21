@@ -4,33 +4,32 @@ import 'normalize.css'
 import '@/styles/globals.css'
 import Header from '@/components/header/Header'
 import Footer from '@/components/footer/Footer'
-import SunIcon from '@/components/assets/SunIcon'
 import IconHandler from '@/components/assets/IconHandler'
+import { useEffect, useRef, useState } from 'react'
+import Button from '@/components/button/Button'
 
 export default function App({ Component, pageProps }: AppProps) {
-  const modeOptions = [
-    { name: 'sun', text: 'light' },
-    { name: 'moon', text: 'dark' },
-  ]
+  const [theme, setTheme] = useState('light')
+  const rootRef = useRef(null)
+  const handleThemeChange = (mode: string) => {
+    setTheme(mode)
+  }
+
   return (
     <AuthProvider>
-      <div className="flex justify-center p-20">
-        <Header />
-        <main
-          id="content"
-          role="main"
-          className="relative m-10 flex shrink-0 flex-grow flex-col"
-        >
+      <div
+        className={`flex justify-center p-20 ${theme === 'dark' ? 'dark' : ''}`}
+        ref={rootRef}
+      >
+        <Header theme={theme} />
+        <main id="content" role="main" className="relative m-10 flex flex-col">
           <Component {...pageProps} />
         </main>
-        <div className="top-35 fixed right-10 rounded bg-gray-100 p-5 duration-100 dark:bg-slate-700">
-          {modeOptions.map((mode) => (
-            <button>
-              <IconHandler iconName={mode.name} />
-            </button>
-          ))}
-        </div>
-        <Footer />
+
+        <Footer
+          theme={theme}
+          handleThemeChange={(mode) => handleThemeChange(mode)}
+        />
       </div>
     </AuthProvider>
   )

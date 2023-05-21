@@ -39,17 +39,17 @@ export default function OfficeLocations() {
   }
 
   return (
-    <>
+    <div className="border-indigo-600mx-auto relative flex max-h-[80vh] w-[90vw] flex-col items-center justify-center gap-5 border-4 border-double p-10">
       <Head>
         <link rel="stylesheet" href="cesium/Widgets/widgets.css" />
       </Head>
-      {officeLocations &&
-        false && ( // remove false flag to display the map
-          <CesiumView
-            activeLocation={activeLocation}
-            officeLocations={officeLocations}
-          />
-        )}
+      {officeLocations && (
+        <CesiumView
+          activeLocation={activeLocation}
+          officeLocations={officeLocations}
+          showMap={true}
+        />
+      )}
       <div className="inline-flex justify-center gap-5 rounded-md" role="group">
         {officeLocations &&
           officeLocations.map((location) => (
@@ -60,6 +60,6 @@ export default function OfficeLocations() {
             />
           ))}
       </div>
-    </>
+    </div>
   )
 }
