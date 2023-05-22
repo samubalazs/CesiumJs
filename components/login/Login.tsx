@@ -10,7 +10,6 @@ const Login: React.FC = () => {
 
   useEffect(() => {
     if (session?.user) router.push('/locations')
-    // else router.push('/')
   }, [session])
 
   const handleSignIn = () => {

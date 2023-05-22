@@ -1,5 +1,5 @@
 import { Cartesian3, Color, Ion } from 'cesium'
-import { Entity, Viewer, CameraFlyTo, EntityDescription } from 'resium'
+import { Entity, Viewer, CameraFlyTo, EntityDescription, Scene } from 'resium'
 import { Coordinate } from '@/typings/coordinates'
 
 export type CesiumViewProps = {
@@ -34,6 +34,11 @@ const CesiumView = ({
             width: '85vw',
           }}
         >
+          <Scene
+            onMorphStart={() => {
+              console.log('kiskutya')
+            }}
+          />
           {activeLocation && (
             <CameraFlyTo
               destination={Cartesian3.fromDegrees(
