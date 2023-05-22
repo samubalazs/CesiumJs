@@ -1,7 +1,6 @@
 import { Suspense, useState } from 'react'
 import Head from 'next/head'
 import dynamic from 'next/dynamic'
-import { useSession } from 'next-auth/react'
 import useSWR from 'swr'
 import { Coordinate } from '@/typings/coordinates'
 import Button from '@/components/button/Button'

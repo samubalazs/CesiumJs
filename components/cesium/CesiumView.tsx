@@ -39,7 +39,7 @@ const CesiumView = ({
 
   return (
     <>
-      {showMap && officeLocations ? (
+      {showMap && officeLocations && (
         <Viewer
           style={{
             position: 'relative',
@@ -75,17 +75,10 @@ const CesiumView = ({
                     100,
                   )}
                   point={{ pixelSize: 20, color: Color.WHITE }}
-                >
-                  <EntityDescription>
-                    <h1>Hello!</h1>
-                    <p>This is description. It can be described with React!</p>
-                  </EntityDescription>
-                </Entity>
+                ></Entity>
               )
             })}
         </Viewer>
-      ) : (
-        <div className="h-10 w-full border bg-black"></div>
       )}
     </>
   )
