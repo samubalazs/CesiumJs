@@ -33,7 +33,9 @@ const Footer: React.FC = () => {
           >
             <IconHandler
               iconName={mode.name}
-              iconOptions={{ fill: theme === mode.text ? 'blue' : 'black' }}
+              iconOptions={{
+                fill: theme && theme === mode.text ? 'blue' : 'black',
+              }}
             />
           </button>
         ))}

@@ -1,12 +1,20 @@
-import { Cartesian3, Color, Ion } from 'cesium'
-import { Entity, Viewer, CameraFlyTo, EntityDescription, Scene } from 'resium'
+import { Cartesian3, Color, Ion, Viewer as CesiumViewer } from 'cesium'
+import {
+  Entity,
+  Viewer,
+  CameraFlyTo,
+  EntityDescription,
+  CesiumComponentRef,
+} from 'resium'
 import { Coordinate } from '@/typings/coordinates'
+import { useEffect, useRef } from 'react'
 
 export type CesiumViewProps = {
   activeLocation: Coordinate
   officeLocations: Coordinate[] | undefined
   showMap: boolean
-  handleLoadFinish: (isLoading: boolean) => void
+  handleMapLoading: (isMapLoading: boolean) => void
+  handleAnimationFinish: (isAnimationFinished: boolean) => void
 }
 
 Ion.defaultAccessToken = process.env.NEXT_PUBLIC_CESIUM_ACCESS_TOKEN ?? ''
@@ -15,10 +23,19 @@ const CesiumView = ({
   activeLocation,
   officeLocations,
   showMap,
-  handleLoadFinish,
+  handleMapLoading,
+  handleAnimationFinish,
 }: CesiumViewProps) => {
   const { latitude: activeLatitude, longitude: activeLongitude } =
     activeLocation
+
+  const ref = useRef<CesiumComponentRef<CesiumViewer>>(null)
+
+  useEffect(() => {
+    if (ref.current?.cesiumElement) {
+      handleMapLoading(false)
+    }
+  }, [])
 
   return (
     <>
@@ -33,12 +50,8 @@ const CesiumView = ({
             height: '70vh',
             width: '85vw',
           }}
+          ref={ref}
         >
-          <Scene
-            onMorphStart={() => {
-              console.log('kiskutya')
-            }}
-          />
           {activeLocation && (
             <CameraFlyTo
               destination={Cartesian3.fromDegrees(
@@ -47,7 +60,7 @@ const CesiumView = ({
                 10000,
               )}
               duration={15}
-              onComplete={() => handleLoadFinish(false)}
+              onComplete={() => handleAnimationFinish(false)}
             />
           )}
           {officeLocations &&

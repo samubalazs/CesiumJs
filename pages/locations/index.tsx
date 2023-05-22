@@ -5,13 +5,13 @@ import { useSession } from 'next-auth/react'
 import useSWR from 'swr'
 import { Coordinate } from '@/typings/coordinates'
 import Button from '@/components/button/Button'
+import Loading from '@/components/loading/Loading'
 
 const CesiumView = dynamic(() => import('../../components/cesium/CesiumView'), {
   ssr: false,
 })
 
 export default function OfficeLocations() {
-  const { data: session } = useSession()
   const initialLocation: Coordinate = {
     geoNameId: 3054643,
     locationName: 'Budapest',
@@ -37,10 +37,16 @@ export default function OfficeLocations() {
       setActiveLocation(selectedLocation ?? initialLocation)
     }
   }
-  const [mapLoading, setMapLoading] = useState(true)
 
-  const handleLoadFinish = (isLoading: boolean) => {
-    setMapLoading(false)
+  const [isMapLoading, setMapIsLoading] = useState(true)
+  const [mapAnimating, setMapAnimating] = useState(true)
+
+  const handleMapLoading = (isMapLoading: boolean) => {
+    setMapIsLoading(false)
+  }
+
+  const handleAnimationFinish = (isAnimationFinished: boolean) => {
+    setMapAnimating(false)
   }
 
   return (
@@ -53,7 +59,8 @@ export default function OfficeLocations() {
           activeLocation={activeLocation}
           officeLocations={officeLocations}
           showMap={true}
-          handleLoadFinish={handleLoadFinish}
+          handleMapLoading={handleMapLoading}
+          handleAnimationFinish={handleAnimationFinish}
         />
       )}
       <div
@@ -61,7 +68,8 @@ export default function OfficeLocations() {
         role="group"
       >
         {officeLocations &&
-          !mapLoading &&
+          !isMapLoading &&
+          !mapAnimating &&
           officeLocations.map((location) => (
             <Button
               key={location.geoNameId}
@@ -70,6 +78,7 @@ export default function OfficeLocations() {
             />
           ))}
       </div>
+      {isMapLoading && <Loading />}
     </div>
   )
 }
