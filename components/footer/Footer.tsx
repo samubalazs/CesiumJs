@@ -19,7 +19,7 @@ const Footer: React.FC = () => {
     mode: string,
   ) => {
     e.preventDefault()
-    mode == 'light' ? setTheme('light') : setTheme('dark')
+    mode === 'light' ? setTheme('light') : setTheme('dark')
   }
 
   return (

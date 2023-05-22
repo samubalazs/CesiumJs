@@ -14,14 +14,13 @@ type IconMap = {
 }
 
 const IconHandler: React.FC<IconHandlerProps> = ({ iconName, iconOptions }) => {
-  // Define an object that maps icon names to their respective components
   const iconMap: IconMap = {
     sun: SunIcon,
     moon: MoonIcon,
     featureIcon: FeatureIcon,
   }
+  const { fill, width, height } = { ...iconOptions }
 
-  // Get the selected icon component based on the iconName
   const SelectedIcon = iconMap[iconName]
 
   if (!SelectedIcon) {
@@ -29,7 +28,11 @@ const IconHandler: React.FC<IconHandlerProps> = ({ iconName, iconOptions }) => {
     return null
   }
 
-  return <SelectedIcon {...iconOptions} />
+  return (
+    <SelectedIcon
+      {...{ fill: fill ?? 'black', width: width, height: height }}
+    />
+  )
 }
 
 export default IconHandler
