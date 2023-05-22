@@ -6,6 +6,7 @@ export type CesiumViewProps = {
   activeLocation: Coordinate
   officeLocations: Coordinate[] | undefined
   showMap: boolean
+  handleLoadFinish: (isLoading: boolean) => void
 }
 
 Ion.defaultAccessToken = process.env.NEXT_PUBLIC_CESIUM_ACCESS_TOKEN ?? ''
@@ -14,9 +15,11 @@ const CesiumView = ({
   activeLocation,
   officeLocations,
   showMap,
+  handleLoadFinish,
 }: CesiumViewProps) => {
   const { latitude: activeLatitude, longitude: activeLongitude } =
     activeLocation
+
   return (
     <>
       {showMap && officeLocations ? (
@@ -38,13 +41,15 @@ const CesiumView = ({
                 activeLatitude,
                 10000,
               )}
-              duration={20}
+              duration={10}
+              onComplete={() => handleLoadFinish(false)}
             />
           )}
           {officeLocations &&
-            officeLocations.map((location: any) => {
+            officeLocations.map((location: Coordinate) => {
               return (
                 <Entity
+                  key={location.geoNameId}
                   name={location.locationName}
                   position={Cartesian3.fromDegrees(
                     location.longitude,

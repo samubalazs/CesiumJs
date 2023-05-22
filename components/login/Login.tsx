@@ -30,9 +30,9 @@ const Login: React.FC = () => {
         </div>
       ) : (
         <div className="flex items-center gap-2">
-          <div className="sm:truncate-none block max-w-[105px] truncate sm:max-w-full md:max-w-xs">
+          <span className="sm:truncate-none block max-w-[105px] truncate rounded py-2 pl-3 pr-4 text-blue-400 sm:max-w-full md:max-w-xs md:bg-transparent md:p-0">
             Please log in with your Google account
-          </div>
+          </span>
           <Button displayText="Sign In" handleClick={handleSignIn} />
         </div>
       )}

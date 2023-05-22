@@ -37,9 +37,14 @@ export default function OfficeLocations() {
       setActiveLocation(selectedLocation ?? initialLocation)
     }
   }
+  const [mapLoading, setMapLoading] = useState(true)
+
+  const handleLoadFinish = (isLoading: boolean) => {
+    setMapLoading(false)
+  }
 
   return (
-    <div className="border-indigo-600mx-auto relative flex max-h-[80vh] w-[90vw] flex-col items-center justify-center gap-5 border-4 border-double p-10">
+    <div className="relative mx-auto flex max-h-[80vh] min-h-[80vh] w-[90vw] flex-col items-center justify-center gap-5 border-4 border-double border-blue-400 p-10">
       <Head>
         <link rel="stylesheet" href="cesium/Widgets/widgets.css" />
       </Head>
@@ -47,11 +52,16 @@ export default function OfficeLocations() {
         <CesiumView
           activeLocation={activeLocation}
           officeLocations={officeLocations}
-          showMap={true}
+          showMap={false}
+          handleLoadFinish={handleLoadFinish}
         />
       )}
-      <div className="inline-flex justify-center gap-5 rounded-md" role="group">
+      <div
+        className="duration-10 h-42 max-h-42 inline-flex justify-center gap-5 rounded-md"
+        role="group"
+      >
         {officeLocations &&
+          !mapLoading &&
           officeLocations.map((location) => (
             <Button
               key={location.geoNameId}
