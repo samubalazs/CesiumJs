@@ -1,5 +1,5 @@
 import { Cartesian3, Color, Ion } from 'cesium'
-import { Entity, Viewer, CameraFlyTo } from 'resium'
+import { Entity, Viewer, CameraFlyTo, EntityDescription } from 'resium'
 import { Coordinate } from '@/typings/coordinates'
 
 export type CesiumViewProps = {
@@ -41,7 +41,7 @@ const CesiumView = ({
                 activeLatitude,
                 10000,
               )}
-              duration={10}
+              duration={15}
               onComplete={() => handleLoadFinish(false)}
             />
           )}
@@ -57,7 +57,12 @@ const CesiumView = ({
                     100,
                   )}
                   point={{ pixelSize: 20, color: Color.WHITE }}
-                />
+                >
+                  <EntityDescription>
+                    <h1>Hello!</h1>
+                    <p>This is description. It can be described with React!</p>
+                  </EntityDescription>
+                </Entity>
               )
             })}
         </Viewer>

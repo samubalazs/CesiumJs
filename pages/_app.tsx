@@ -5,11 +5,8 @@ import 'normalize.css'
 import '@/styles/globals.css'
 import Header from '@/components/header/Header'
 import Footer from '@/components/footer/Footer'
-import { useRef, useState } from 'react'
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [theme, setTheme] = useState('light')
-
   return (
     <AuthProvider>
       <ThemeProvider attribute="class">

@@ -52,7 +52,7 @@ export default function OfficeLocations() {
         <CesiumView
           activeLocation={activeLocation}
           officeLocations={officeLocations}
-          showMap={false}
+          showMap={true}
           handleLoadFinish={handleLoadFinish}
         />
       )}

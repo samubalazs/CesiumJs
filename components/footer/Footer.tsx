@@ -16,9 +16,10 @@ const Footer: React.FC = () => {
 
   const onButtonClick = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    mode: string,
   ) => {
     e.preventDefault()
-    theme == 'dark' ? setTheme('light') : setTheme('dark')
+    mode == 'light' ? setTheme('light') : setTheme('dark')
   }
 
   return (
@@ -27,7 +28,7 @@ const Footer: React.FC = () => {
         {modeOptions.map((mode) => (
           <button
             key={mode.name}
-            onClick={(e) => onButtonClick(e)}
+            onClick={(e) => onButtonClick(e, mode.text)}
             className="h-5 w-5 rounded-full leading-9"
           >
             <IconHandler
