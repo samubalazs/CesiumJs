@@ -3,7 +3,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 ## Getting Started
 
 First, please be sure you copied the cesium assets to the public folder
+
 Please ask me to add you as a tester to be able to use Google Auth
+
 Please ask me for .env variables
 
 Then, run the development server:
